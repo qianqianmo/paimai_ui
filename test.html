@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="js/jq_ajax_config.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+
+			<div class="demo-input-size">
+				<el-row>
+					<el-form>
+						<el-col :span="5">
+							<el-form-item label="管理员名称" prop="username">
+								<el-col :span="12">
+									<!--非常重要-->
+									<el-input placeholder="请输入内容" suffix-icon="el-icon-date" v-model="input1">
+									</el-input>
+								</el-col>
+							</el-form-item>
+						</el-col>
+						<el-col :span="5">
+							<el-form-item label="管理员名称" prop="username">
+								<el-col :span="12">
+									<!--非常重要-->
+									<el-input placeholder="请输入内容" suffix-icon="el-icon-date" v-model="input1">
+									</el-input>
+								</el-col>
+							</el-form-item>
+						</el-col>
+						<el-col :span="5">
+							<el-form-item label="管理员名称" prop="username">
+								<el-col :span="12">
+									<!--非常重要-->
+									<el-input placeholder="请输入内容" suffix-icon="el-icon-date" v-model="input1">
+									</el-input>
+								</el-col>
+							</el-form-item>
+						</el-col>
+						<el-col :span="5">
+							<el-form-item label="管理员名称" prop="username">
+								<el-col :span="12">
+									<!--非常重要-->
+									<el-input placeholder="请输入内容" suffix-icon="el-icon-date" v-model="input1">
+									</el-input>
+								</el-col>
+							</el-form-item>
+						</el-col>
+						<el-col :span="4">
+							<el-form-item>
+								<el-button type="primary">查询</el-button>
+
+							</el-form-item>
+						</el-col>
+					</el-form>
+				</el-row>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script>
+		var Main = {
+			data() {
+				return {
+					input1: '',
+					input2: '',
+					input3: '',
+					input4: ''
+				}
+			}
+		}
+		var Ctor = Vue.extend(Main)
+		new Ctor().$mount('#app');
+	</script>
+
+</html>

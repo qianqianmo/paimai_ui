@@ -1,10 +1,77 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8" />
-		<title></title>
+		<title>后台管理页面参考</title>
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="js/jq_ajax_config.js"></script>
+		<style>
+			.el-header,
+			.el-footer {
+				background: gainsboro;
+				font-size: 30px;
+			}
+			
+			.el-menu {
+				border: 0px;
+			}
+		</style>
 	</head>
+
 	<body>
-		第一次修改
+		<div id="indxApp">
+			<el-container style='height:95vh; border: 1px solid #eee'>
+				<el-header style='height:10%;'>欢迎admin登录成功</el-header>
+				<el-container>
+					<el-aside width="200px">
+						<el-menu>
+							<el-submenu index="1">
+								<template slot="title">
+									<i class="el-icon-user"></i>
+									<span>系统管理</span>
+								</template>
+								<el-menu-item-group>
+									<el-menu-item index="1-2" @click="showView('adduser.html')"><i class="el-icon-message"></i>添加管理员</el-menu-item>
+									<el-menu-item index="1-1" @click="showView('showUserList.html')"><i class="el-icon-message"></i>用户管理</el-menu-item>
+								</el-menu-item-group>
+							</el-submenu>
+							<el-submenu index="2">
+								<template slot="title">
+									<i class="el-icon-user"></i>
+									<span>商品管理</span>
+								</template>
+								<el-menu-item-group>
+									<el-menu-item index="2-3" @click="showView('addshopping.html')"><i class="el-icon-message"></i>添加商品</el-menu-item>
+									<el-menu-item index="2-2" @click="showView('showshopping.html')"><i class="el-icon-message"></i>管理商品</el-menu-item>
+									<el-menu-item index="2-1" @click="showView('person.html')"><i class="el-icon-message"></i>商品信息搜索</el-menu-item>
+								</el-menu-item-group>
+							</el-submenu>							
+						</el-menu>
+					</el-aside>
+					<el-main>
+						<div id="cnt"></div>
+					</el-main>
+				</el-container>
+				<el-footer style='height:10%;'></el-footer>
+			</el-container>
+		</div>
 	</body>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script>
+		var indexApp = new Vue({
+			data: {},
+			methods: {
+				showView(url) {
+					$('#cnt').load(url);
+				}
+			},
+			mounted() {
+				this.showView('pmslb.html');
+			}
+		}).$mount('#indxApp');
+	</script>
+
 </html>
