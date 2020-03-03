@@ -4,7 +4,11 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>查看竞拍结果</title>
-		
+		<style type="text/css">
+			ul{
+				list-style: none;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -13,23 +17,23 @@
 			<div id="querylist">
 				<div class="sale">
 					<h2 class="lf">拍卖结束的商品</h2>
-					<div class="right rulse">当前用户是：<span class="blue strong"><a href="#" title="张三" >张三</a></span></div>
+					<div class="right rulse">当前用户是：<span class="blue strong"><a href="#" title="张三" >{{user.username}}</a></span></div>
 					<div class="cl"></div>
 				</div>
 				<div class="items">
 					<el-table :data="endlist" border style="width: 100%">
-						<el-table-column prop="name" label="名称" width="180">
+						<el-table-column prop="auctionname" label="名称" width="180">
 						</el-table-column>
-						<el-table-column prop="stime" label="开始时间" width="180">
+						<el-table-column prop="auctionstarttime" label="开始时间" width="180">
 						</el-table-column>
-						<el-table-column prop="etime" label="结束时间">
+						<el-table-column prop="auctionendtime" label="结束时间">
 						</el-table-column>
-						<el-table-column prop="sprice" label="起拍价">
+						<el-table-column prop="auctionstartprice" label="起拍价">
 						</el-table-column>
-						<el-table-column prop="eprice" label="成交价">
+						<el-table-column prop="price" label="成交价">
 						</el-table-column>
 
-						<el-table-column prop="mname" label="买家">
+						<el-table-column prop="name" label="买家">
 						</el-table-column>
 					</el-table>
 				</div>
@@ -64,15 +68,10 @@
 		var querylist = new Vue({
 			el: '#querylist',
 			data: {
-				endlist: [{
-					name: '国术',
-					stime: '2019-12-12',
-					etime: '2019-12-21',
-					sprice: '2,000',
-					eprice: '5,000',
-					mname: '张三'
-
-				}],
+				user:{
+					username:''
+				},
+				endlist: [],
 				inlist: [{
 					name: '国术',
 					miaos: '明国藏书',
@@ -84,7 +83,22 @@
 				}]
 
 			},
+			methods:{
+				queryend(){
+					let _this=this;
+					$.getJSON("http://127.0.0.1:8080/api/aucs",function(data){
+						_this.endlist=data;
+					})
+				}
+				
+			},
 			mounted(){
+				this.queryend();
+				let users=window.sessionStorage.getItem('user');
+				if(users){
+					this.user=JSON.parse(users);//反序列化
+				}
+				
 				
 			}
 

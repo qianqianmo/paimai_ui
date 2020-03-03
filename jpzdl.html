@@ -8,6 +8,11 @@
 		<script type="text/javascript" src="js/vue.js"></script>
 		<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="js/jq_ajax_config.js"></script>
+		<style>
+			#jpzdlApp{
+				margin: auto;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -15,20 +20,20 @@
 			<h1>用户登录</h1>
 			<el-form ref="form" :rules="rules" :model="form" label-width="80px" style="width: 70%;">
 				<el-form-item label="用户名：" prop="name">
-					<el-input placeholder="常用邮箱" v-model="form.name"></el-input>
+					<el-col :span="5">
+					<el-input placeholder="请输入用户名" v-model="form.name"></el-input>
+					</el-col>
 				</el-form-item>
 				<el-form-item label="密码：" prop="pwd">
-					<el-input placeholder="密码" v-model="form.pwd" show-password></el-input>
-				</el-form-item>
-				<el-form-item label="验证码：">
-					<el-input placeholder="验证码"></el-input>
-					<el-link href="java:Script(0)">看不清</el-link>
+					<el-col :span="5">
+					<el-input placeholder="请输入密码" v-model="form.pwd" show-password></el-input>
+					</el-col>
 				</el-form-item>
 				<el-form-item>
-					<el-checkbox v-model="checked">下次自动登录</el-checkbox>
+					<el-checkbox >下次自动登录</el-checkbox>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" @click="onSubmit">登录</el-button>
+					<el-button type="primary" @click="login()">登录</el-button>
 					<el-button type="warning">注册</el-button>
 					<el-link href="java:Script(0)">忘记密码</el-link>
 				</el-form-item>
@@ -48,7 +53,7 @@
 				rules: {
 					name: [{
 						required: true,
-						message: '请输入常用邮箱',
+						message: '请输入用户名',
 						trigger: 'blur'
 					}],
 					pwd: [{
@@ -58,6 +63,24 @@
 					}]
 				}
 
+			},
+			methods:{
+				login(){
+					$.getJSON(`http://127.0.0.1:8080/api/users/user/${this.form.name}/${this.form.pwd}`,
+					function(data){
+						if(data!=null){
+							window.sessionStorage.setItem('user',JSON.stringify(data));
+							location.href="index.html"
+
+						}else{
+							alert("密码或用户名错误");
+						}
+						
+						
+						
+					})
+					
+				}
 			}
 		});
 	</script>

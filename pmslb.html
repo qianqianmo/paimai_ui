@@ -28,7 +28,7 @@
 						<el-form-item label="名称" prop="name">
 							<el-col :span="14">
 								<!--非常重要-->
-								<el-input placeholder="请输入内容" suffix-icon="el-icon-date" v-model="name">
+								<el-input placeholder="请输入内容"  v-model="name">
 								</el-input>
 							</el-col>
 						</el-form-item>
@@ -37,7 +37,7 @@
 						<el-form-item label="描述" prop="miaos">
 							<el-col :span="14">
 								<!--非常重要-->
-								<el-input placeholder="请输入内容" suffix-icon="el-icon-date" v-model="miaos">
+								<el-input placeholder="请输入内容"  v-model="miaos">
 								</el-input>
 							</el-col>
 						</el-form-item>
@@ -64,7 +64,7 @@
 						<el-form-item label="起拍价" prop="price">
 							<el-col :span="14">
 								<!--非常重要-->
-								<el-input placeholder="请输入内容" suffix-icon="el-icon-date" v-model="price">
+								<el-input placeholder="请输入内容"  v-model="price">
 								</el-input>
 							</el-col>
 						</el-form-item>
@@ -77,30 +77,30 @@
 					</el-col>
 				</el-form>
 			</el-row>
-			<el-table :data="list" border style="width: 100%">
-				<el-table-column prop="name" label="名称" width="180">
+			<el-table :data="pageInfo.list" border style="width: 100%">
+				<el-table-column prop="auctionname" label="名称" width="180">
 				</el-table-column>
-				<el-table-column prop="miaos" label="描述" width="180">
+				<el-table-column prop="auctiondesc" label="描述" width="180">
 				</el-table-column>
-				<el-table-column prop="stime" label="开始时间">
+				<el-table-column prop="auctionstarttime" label="开始时间">
 				</el-table-column>
-				<el-table-column prop="etime" label="结束时间">
+				<el-table-column prop="auctionendtime" label="结束时间">
 				</el-table-column>
-				<el-table-column prop="price" label="起拍价">
+				<el-table-column prop="auctionstartprice" label="起拍价">
 				</el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">竞拍</el-button>
+						<el-button @click="handleClick(scope.row.auctionid)" type="text" size="small">竞拍</el-button>
 						
 					</template>
 				</el-table-column>
 			</el-table>
 			</template>
 			<div class="page">
-				<el-button type="text" size="small" v-model="firstPage">首页</el-button>
-				<el-button type="text" size="small" v-model="prePage">上一页</el-button>
-				<el-button type="text" size="small" v-model="nextPage">下一页</el-button>
-				<el-button type="text" size="small" v-model="lastPage">尾页</el-button>
+				<el-button type="text" size="small" @click="fristPage()">首页</el-button>
+				<el-button type="text" size="small" @click="prePage()">上一页</el-button>
+				<el-button type="text" size="small" @click="nextPage()">下一页</el-button>
+				<el-button type="text" size="small" @click="lastPage()">尾页</el-button>
 				
 				
 			</div>
@@ -112,10 +112,7 @@
 		var app = new Vue({
 			el: '#app',
 			data: {
-				firstPage:0,
-				prePage:0,
-				nextPage:0,
-			  lastPage:0,
+				pageInfo:{},
 				name:'',
 				miaos:'',
 				stime:'',
@@ -130,6 +127,41 @@
 
 				}]
 
+			},
+			methods:{
+				handleClick(id){
+				
+					window.sessionStorage.setItem('id', id);
+					indexApp.showView("jpy.html");
+					
+				},
+				fristPage() {
+					this.getpage(this.pageInfo.navigateFirstPage);
+				},
+				prePage() {
+					this.getpage(this.pageInfo.prePage);
+				},
+				nextPage() {
+					this.getpage(this.pageInfo.nextPage);
+				},
+				lastPage() {
+					this.getpage(this.pageInfo.navigateLastPage);
+				},
+				getpage(pageNum){
+					let _this=this;
+					$.getJSON(`http://127.0.0.1:8080/api/aucs/auc/${pageNum}`,
+					function(data){
+						_this.pageInfo=data;
+						
+					})
+				}
+			
+				
+			},
+			mounted(){
+				this.getpage(1);
+				
+				
 			}
 
 		});

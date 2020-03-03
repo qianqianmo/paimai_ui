@@ -24,23 +24,23 @@
 					<table class="table table-bordered">
 						<tr>
 							<td style="width: 150px; text-align: center;">名称：</td>
-							<td>{{list.name}}</td>
+							<td>{{auctionvo.auction.auctionname}}</td>
 						</tr>
 						<tr>
 							<td style="width: 150px; text-align: center;">描述：</td>
-							<td>{{list.miaos}}</td>
+							<td>{{auctionvo.auction.auctiondesc}}</td>
 						</tr>
 						<tr>
 							<td style="width: 150px; text-align: center;">开始时间：</td>
-							<td>{{list.stime}}</td>
+							<td>{{auctionvo.auction.auctionstarttime}}</td>
 						</tr>
 						<tr>
 							<td style="width: 150px; text-align: center;">结束时间：</td>
-							<td>{{list.etime}}</td>
+							<td>{{auctionvo.auction.auctionendtime}}</td>
 						</tr>
 						<tr>
 							<td style="width: 150px; text-align: center;">起拍价：</td>
-							<td>{{list.price}}</td>
+							<td>{{auctionvo.auction.auctionstartprice}}</td>
 						</tr>
 					</table>
 				</el-col>
@@ -75,12 +75,12 @@
 				
 			</el-row>
 			<strong>出价记录</strong>
-			<el-table :data="cjlist" border style="width: 100%">
-				<el-table-column prop="time" label="竞拍时间" width="180">
+			<el-table :data="auctionvo.list" border style="width: 100%">
+				<el-table-column prop="auctiontime" label="竞拍时间" width="180">
 				</el-table-column>
-				<el-table-column prop="price" label="竞拍价格" width="180">
+				<el-table-column prop="auctionprice" label="竞拍价格" width="180">
 				</el-table-column>
-				<el-table-column prop="name"  label="竞拍人" width="180">
+				<el-table-column prop="username"  label="竞拍人" width="180">
 				</el-table-column>
 			
 			</el-table>
@@ -91,28 +91,23 @@
 		var jinpai = new Vue({
 			el: '#jinpai',
 			data: {
+				id:'',
 				pprice: 0,
-				list: {
-					name: '国术',
-					miaos: '明国藏书',
-					stime: '2019-12-12',
-					etime: '2019-12-21',
-					price: '2,000'
-
-				},
-				cjlist:[{
-					time:'2018-09-09',
-					price:'5000,00',
-					name:"张三"
-					
-				},
-				{
-					time:'2018-09-09',
-					price:'4000,00',
-					name:"李四"
+				
+				auctionvo:{}
+			},methods:{
+				gotoauction(id){
+					let _this=this
+					$.getJSON(`http://127.0.0.1:8080/api/aucs/au/${id}`,function(data){
+							_this.auctionvo=data;
+						
+					});
 					
 				}
-				]
+			},
+			mounted(){
+				this.id=window.sessionStorage.getItem('id');
+				this.gotoauction(this.id);
 			}
 
 		})

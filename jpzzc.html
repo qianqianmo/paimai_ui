@@ -15,27 +15,36 @@
 			<h1>用户登录</h1>
 			<el-form ref="form" :rules="rules" :model="form" label-width="100px" style="width: 70%;">
 				<el-form-item label="用户名：" prop="name">
-					<el-input placeholder="常用邮箱" v-model="form.name"></el-input>
+					<el-col :span="5">
+					<el-input placeholder="请输入用户名" v-model="form.name"></el-input>
+					</el-col>
 				</el-form-item>
 				<el-form-item label="密码：" prop="pwd">
-					<el-input placeholder="密码" v-model="form.pwd" show-password></el-input>
+					<el-col :span="5">
+					<el-input placeholder="请输入密码" v-model="form.pwd" show-password></el-input>
+					</el-col>
 				</el-form-item>
 				<el-form-item label="身份证号：" prop="cardno">
-					<el-input placeholder="常用邮箱" v-model="form.cardno"></el-input>
+					<el-col :span="5">
+					<el-input placeholder="请输入身份证号" v-model="form.cardno"></el-input>
+					</el-col>
 				</el-form-item>
 				<el-form-item label="电话：" prop="phone">
-					<el-input placeholder="常用邮箱" v-model="form.phone"></el-input>
+					<el-col :span="5">
+					<el-input placeholder="请输入电话号码" v-model="form.phone"></el-input>
+					</el-col>
 				</el-form-item>
 				<el-form-item label="住址：">
-					<el-input placeholder="常用邮箱" v-model="form.address"></el-input>
+					<el-col :span="5">
+					<el-input placeholder="请输入住址" v-model="form.address"></el-input>
+					</el-col>
 				</el-form-item>
 				<el-form-item label="邮政编码：">
-					<el-input placeholder="常用邮箱" v-model="form.code"></el-input>
+					<el-col :span="5">
+					<el-input placeholder="请输入邮箱编码" v-model="form.code"></el-input>
+					</el-col>
 				</el-form-item>
-				<el-form-item label="验证码：">
-					<el-input placeholder="验证码"></el-input>
-					<el-link href="java:Script(0)">看不清</el-link>
-				</el-form-item>
+				
 				<el-form-item>
 					<el-checkbox v-model="checked">我同意《服务条款》</el-checkbox>
 				</el-form-item>
